@@ -73,7 +73,7 @@ function extractTechniqueItems(html: string) {
     while (current.length && !current.is('h1, h2, h3, h4')) {
       const imageNodes = current.is('img') ? [current] : current.find('img').toArray();
       imageNodes.forEach((node: any) => {
-        const img = cheerio(node);
+        const img = $(node);
         const imgSrc = img.attr('src') || img.attr('data-src');
         if (!imgSrc) return;
 
