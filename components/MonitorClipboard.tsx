@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { Clipboard } from 'lucide-react';
-import { loadHistory, saveHistory } from '../lib/history';
+import { HistoryItem, saveHistory } from '../lib/history';
 
 interface MonitorClipboardProps {
-  history: string[];
-  onHistoryChange: (items: string[]) => void;
+  history: HistoryItem[];
+  onHistoryChange: (items: HistoryItem[]) => void;
 }
 
 export function MonitorClipboard({ history, onHistoryChange }: MonitorClipboardProps) {
@@ -15,7 +15,7 @@ export function MonitorClipboard({ history, onHistoryChange }: MonitorClipboardP
 
   useEffect(() => {
     if (history.length > 0) {
-      setClipboardText(history[0] || clipboardText);
+      setClipboardText(history[0].text || clipboardText);
     }
   }, [history]);
 
@@ -29,7 +29,12 @@ export function MonitorClipboard({ history, onHistoryChange }: MonitorClipboardP
       }
       setClipboardText(text);
       setStatus('Conteúdo lido com sucesso.');
-      const updated = [text, ...history.filter((item) => item !== text)].slice(0, 30);
+      const item: HistoryItem = {
+        id: crypto.randomUUID?.() ?? `${Date.now()}`,
+        text,
+        createdAt: Date.now(),
+      };
+      const updated = [item, ...history.filter((entry) => entry.text !== text)].slice(0, 30);
       saveHistory(updated);
       onHistoryChange(updated);
     } catch (error) {

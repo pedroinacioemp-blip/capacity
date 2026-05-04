@@ -48,7 +48,7 @@ export async function createImageFromText(text: string, backgroundColor: string,
   ctx.fillRect(40, canvas.height - 120, canvas.width - 80, 80);
   ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
   ctx.font = '600 22px Inter, sans-serif';
-  ctx.fillText('ClipFlow Web', canvas.width / 2, canvas.height - 82);
+  ctx.fillText('Zarcovi', canvas.width / 2, canvas.height - 82);
 
   return canvas.toDataURL('image/png', 1);
 }

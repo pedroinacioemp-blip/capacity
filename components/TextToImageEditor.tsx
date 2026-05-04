@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { ArrowDownCircle, Palette } from 'lucide-react';
 import { createImageFromText } from '../lib/image';
-import { loadHistory, saveHistory } from '../lib/history';
+import { HistoryItem, loadHistory, saveHistory } from '../lib/history';
 
 const templates = [
   { id: 'minimal', label: 'Minimal', background: '#08101E', color: '#FFFFFF' },
@@ -13,7 +13,7 @@ const templates = [
 ];
 
 interface TextToImageEditorProps {
-  onSave: (text: string) => void;
+  onSave: (item: HistoryItem) => void;
 }
 
 export function TextToImageEditor({ onSave }: TextToImageEditorProps) {
@@ -35,16 +35,22 @@ export function TextToImageEditor({ onSave }: TextToImageEditorProps) {
     if (!imageUrl) return;
     const link = document.createElement('a');
     link.href = imageUrl;
-    link.download = 'clipflow-text-image.png';
+    link.download = 'zarcovi-text-image.png';
     link.click();
   }
 
   async function saveToHistory() {
     const currentHistory = loadHistory();
-    const updatedHistory = [text, ...currentHistory.filter((item) => item !== text)].slice(0, 30);
+    const item: HistoryItem = {
+      id: crypto.randomUUID?.() ?? `${Date.now()}`,
+      text,
+      imageUrl: imageUrl ?? undefined,
+      createdAt: Date.now(),
+    };
+    const updatedHistory = [item, ...currentHistory.filter((entry) => entry.text !== text)].slice(0, 30);
     saveHistory(updatedHistory);
-    setStatus('Texto salvo no histórico.');
-    onSave(text);
+    setStatus('Texto e imagem salvos no histórico.');
+    onSave(item);
   }
 
   return (

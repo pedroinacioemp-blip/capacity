@@ -1,6 +1,13 @@
-export const clipboardHistoryKey = 'clipflow_clipboard_history';
+export interface HistoryItem {
+  id: string;
+  text: string;
+  imageUrl?: string;
+  createdAt: number;
+}
 
-export function loadHistory(): string[] {
+export const clipboardHistoryKey = 'zarcovi_clipboard_history';
+
+export function loadHistory(): HistoryItem[] {
   if (typeof window === 'undefined') {
     return [];
   }
@@ -13,7 +20,7 @@ export function loadHistory(): string[] {
   }
 }
 
-export function saveHistory(history: string[]) {
+export function saveHistory(history: HistoryItem[]) {
   if (typeof window === 'undefined') {
     return;
   }
