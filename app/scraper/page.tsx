@@ -21,7 +21,9 @@ export default function ScraperPage() {
       const result = await response.json();
       if (result.success) {
         setData(result.data);
-        setStatus('Conteúdo extraído com sucesso.');
+        setStatus('Conteúdo extraído com sucesso. Enviando para WhatsApp...');
+        // Automatically send to WhatsApp after successful extraction
+        setTimeout(() => sendToWhatsApp(), 1000); // Small delay for user feedback
       } else {
         setStatus('Falha ao extrair conteúdo.');
       }
@@ -49,7 +51,7 @@ export default function ScraperPage() {
           <p className="eyebrow">Zarcovi Scraper</p>
           <h1>Extrair Técnicas de Hagoromo</h1>
           <p className="hero-copy">
-            Extraia imagens e legendas das técnicas de Hagoromo e compartilhe via WhatsApp automaticamente.
+            Extraia imagens e legendas das técnicas de Hagoromo e envie automaticamente para o WhatsApp.
           </p>
         </div>
       </header>
@@ -57,20 +59,15 @@ export default function ScraperPage() {
         <div className="card">
           <div className="card-header">
             <div>
-              <h2>Extração de Conteúdo</h2>
-              <p>Busque técnicas e imagens da página de Hagoromo.</p>
+              <h2>Extração Automática</h2>
+              <p>Busque técnicas e imagens da página de Hagoromo e envie diretamente para o WhatsApp.</p>
             </div>
           </div>
           <div className="field-group">
             <div className="button-group">
               <button className="primary" onClick={scrapeContent} disabled={loading}>
-                {loading ? <Loader2 size={16} className="animate-spin" /> : 'Extrair Conteúdo'}
+                {loading ? <Loader2 size={16} className="animate-spin" /> : 'Extrair e Enviar WhatsApp'}
               </button>
-              {data.length > 0 && (
-                <button className="primary" onClick={sendToWhatsApp}>
-                  <Send size={16} /> Enviar WhatsApp
-                </button>
-              )}
             </div>
             <p className="status-text">{status}</p>
           </div>
