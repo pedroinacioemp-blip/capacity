@@ -5,7 +5,7 @@ import { MonitorClipboard } from '../components/MonitorClipboard';
 import { TextToImageEditor } from '../components/TextToImageEditor';
 import { HistoryPanel } from '../components/HistoryPanel';
 import { SharePanel } from '../components/SharePanel';
-import { loadHistory } from '../lib/history';
+import { clipboardHistoryKey, loadHistory } from '../lib/history';
 
 export default function HomePage() {
   const [history, setHistory] = useState<string[]>([]);
