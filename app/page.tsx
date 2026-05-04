@@ -36,6 +36,11 @@ export default function HomePage() {
           <p className="hero-copy">
             Armazene textos e imagens criadas ou copiadas, organize tudo no histórico e envie para o WhatsApp com um clique.
           </p>
+          <div style={{ marginTop: '1rem' }}>
+            <a href="/scraper" className="button primary" style={{ display: 'inline-block', textDecoration: 'none' }}>
+              Extrair Técnicas de Hagoromo
+            </a>
+          </div>
         </div>
       </header>
       <section className="grid-layout">
